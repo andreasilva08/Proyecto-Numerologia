@@ -1,24 +1,24 @@
 import { Router } from 'express';
 import { 
-  createNumerologyProfile, 
-  getNumerologyProfiles, 
-  getNumerologyProfileById, 
-  updateNumerologyProfile, 
-  deleteNumerologyProfile 
-} from '../controllers/numerologyProfile.controller.js';
+  createCompatibilityMatch, 
+  getCompatibilityMatches, 
+  getCompatibilityMatchById, 
+  updateCompatibilityMatch, 
+  deleteCompatibilityMatch 
+} from '../controllers/compatibilityMatch.controller.js';
 import { 
-  validarCrearPerfilNumerologico, 
-  validarPerfilId 
-} from '../validators/numerologyProfile.validator.js';
+  validarCrearCompatibilidad, 
+  validarCompatibilidadId 
+} from '../validators/compatibilityMatch.validator.js';
 import { validateResult } from '../middlewares/validateResult.middleware.js';
 import { validarJWT } from '../middlewares/validarToken.js';
 
 const router = Router();
 
-router.post('/', validarJWT, validarCrearPerfilNumerologico, validateResult, createNumerologyProfile);
-router.get('/', validarJWT, getNumerologyProfiles);
-router.get('/:id', validarJWT, validarPerfilId, validateResult, getNumerologyProfileById);
-router.put('/:id', validarJWT, validarPerfilId, validarCrearPerfilNumerologico, validateResult, updateNumerologyProfile);
-router.delete('/:id', validarJWT, validarPerfilId, validateResult, deleteNumerologyProfile);
+router.post('/', validarJWT, validarCrearCompatibilidad, validateResult, createCompatibilityMatch);
+router.get('/', validarJWT, getCompatibilityMatches);
+router.get('/:id', validarJWT, validarCompatibilidadId, validateResult, getCompatibilityMatchById);
+router.put('/:id', validarJWT, validarCompatibilidadId, validarCrearCompatibilidad, validateResult, updateCompatibilityMatch);
+router.delete('/:id', validarJWT, validarCompatibilidadId, validateResult, deleteCompatibilityMatch);
 
 export default router;
