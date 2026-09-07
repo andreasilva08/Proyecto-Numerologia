@@ -11,13 +11,14 @@ import {
   validarLecturaId 
 } from '../validators/reading.validator.js';
 import { validateResult } from '../middlewares/validateResult.middleware.js';
+import { validarJWT } from '../middlewares/validarToken.js';
 
 const router = Router();
 
-router.post('/', validarCrearLectura, validateResult, createReading);
-router.get('/', getReadings);
-router.get('/:id', validarLecturaId, validateResult, getReadingById);
-router.put('/:id', validarLecturaId, validarCrearLectura, validateResult, updateReading);
-router.delete('/:id', validarLecturaId, validateResult, deleteReading);
+router.post('/', validarJWT, validarCrearLectura, validateResult, createReading);
+router.get('/', validarJWT, getReadings);
+router.get('/:id', validarJWT, validarLecturaId, validateResult, getReadingById);
+router.put('/:id', validarJWT, validarLecturaId, validarCrearLectura, validateResult, updateReading);
+router.delete('/:id', validarJWT, validarLecturaId, validateResult, deleteReading);
 
 export default router;
