@@ -11,13 +11,14 @@ import {
   validarAuditoriaId 
 } from '../validators/auditLog.validator.js';
 import { validateResult } from '../middlewares/validateResult.middleware.js';
+import { validarJWT } from '../middlewares/validarToken.js';
 
 const router = Router();
 
-router.post('/', validarCrearRegistroAuditoria, validateResult, createAuditLog);
-router.get('/', getAuditLogs);
-router.get('/:id', validarAuditoriaId, validateResult, getAuditLogById);
-router.put('/:id', validarAuditoriaId, validarCrearRegistroAuditoria, validateResult, updateAuditLog);
-router.delete('/:id', validarAuditoriaId, validateResult, deleteAuditLog);
+router.post('/', validarJWT, validarCrearRegistroAuditoria, validateResult, createAuditLog);
+router.get('/', validarJWT, getAuditLogs);
+router.get('/:id', validarJWT, validarAuditoriaId, validateResult, getAuditLogById);
+router.put('/:id', validarJWT, validarAuditoriaId, validarCrearRegistroAuditoria, validateResult, updateAuditLog);
+router.delete('/:id', validarJWT, validarAuditoriaId, validateResult, deleteAuditLog);
 
 export default router;
