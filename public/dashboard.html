@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Numerology Master</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+  <main class="dashboard-container">
+    
+    <!-- Encabezado del Dashboard -->
+    <header>
+      <h1 id="welcomeUser">¡Hola! 👋</h1>
+      <button id="logoutBtn">Cerrar Sesión</button>
+    </header>
+
+    <!-- Grid de Tarjetas -->
+    <div class="dashboard-grid">
+
+      <!-- TARJETA NUEVA: Perfil Místico del Usuario -->
+      <section class="card profile-card">
+        <div class="mystic-symbol" id="zodiacSymbol">✨</div>
+        <h2 id="profileName">Cargando...</h2>
+        <p id="profileEmail" style="font-size: 0.85rem; margin-bottom: 15px; color: var(--accent-cyan);"></p>
+        
+        <div style="border-top: 1px solid var(--border-glass); padding-top: 15px; margin-top: 10px;">
+          <p><strong>Signo Zodiacal:</strong> <span id="zodiacSign" style="color: var(--primary-gold-light);">--</span></p>
+          <p><strong>Elemento:</strong> <span id="zodiacElement" style="color: var(--primary-gold-light);">--</span></p>
+        </div>
+
+        <div style="margin-top: 15px; padding: 12px; background: rgba(12, 14, 24, 0.8); border-radius: 10px; border: 1px solid var(--border-glass);">
+          <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary-gold); margin-bottom: 5px;"><strong>🔮 Horóscopo Astrológico</strong></p>
+          <p id="zodiacHoroscope" style="font-size: 0.9rem; font-style: italic; color: var(--text-main);">Cargando tu predicción...</p>
+        </div>
+      </section>
+
+      <!-- Tarjeta 2: Mi Perfil Numerológico -->
+      <section class="card">
+        <div class="mystic-symbol">🔮</div>
+        <h2>Mi Camino de Vida</h2>
+        <p>Descubre tu número personal calculado por el servidor.</p>
+        
+        <button id="btnCalculateProfile">Ver Mi Perfil</button>
+
+        <div id="profileResultsView" style="display: none; margin-top: 20px;">
+          <h3 style="text-align: center; margin-bottom: 10px;">
+            Número: <span id="numLifePath" style="color: var(--primary-gold-light);">--</span>
+          </h3>
+          <p id="numMeaningText" style="text-align: center; font-size: 0.95rem;"></p>
+        </div>
+      </section>
+
+      <!-- Tarjeta 3: Lectura Numerológica del Día -->
+      <section class="card">
+        <div class="mystic-symbol">📜</div>
+        <h2>Lectura del Día</h2>
+        <p>Consulta la guía y energía cósmica reservada para hoy.</p>
+
+        <button id="btnGetReading">Obtener Lectura</button>
+
+        <div style="margin-top: 20px;">
+          <p id="dailyReadingText" style="font-style: italic; text-align: center; color: var(--text-main);">
+            Haz clic en el botón superior para revelar tu mensaje diario.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="./js/dashboard.js"></script>
+</body>
+</html>
