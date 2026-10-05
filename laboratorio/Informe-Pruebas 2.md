@@ -1,5 +1,4 @@
-```markdown
-# 🛡️ Reporte de Auditoría y Pruebas de Seguridad (API REST)
+#  Reporte de Auditoría y Pruebas de Seguridad (API REST)
 
 ![Seguridad](https://img.shields.io/badge/Seguridad-MIXTO-orange)
 ![Estado](https://img.shields.io/badge/Estado-100%25%20Completado-blue)
@@ -8,7 +7,7 @@
 
 ---
 
-## 📌 Información del Laboratorio
+##  Información del Laboratorio
 
 | Parámetro | Detalle |
 | :--- | :--- |
@@ -22,7 +21,7 @@
 
 ---
 
-## 👥 Equipo de Evaluación y Desarrolladores
+##  Equipo de Evaluación y Desarrolladores
 
 * **Equipo Evaluador / Atacante:**
   * Andrea Carolina Silva Macias
@@ -34,7 +33,7 @@
 
 ---
 
-## 📋 Resumen Ejecutivo
+##  Resumen Ejecutivo
 
 | Métrica | Cantidad | Porcentaje |
 | :--- | :---: | :---: |
@@ -44,7 +43,7 @@
 
 ---
 
-## 🔍 Detalle de Casos de Prueba (14 Vectores)
+##  Detalle de Casos de Prueba (14 Vectores)
 
 ### Ataque #01: Omisión de Campos Obligatorios
 
