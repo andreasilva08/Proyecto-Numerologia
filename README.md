@@ -9,7 +9,12 @@ API REST desarrollada con Node.js, Express y MongoDB Atlas para la gestión de u
 
 Toda la documentación técnica, informes de auditoría y pruebas se encuentran centralizados en la carpeta `/laboratorio`:
 
-*  [Reporte de Ataques e Inyecciones](./laboratorio/informe-ataque.md)
-*  [Especificación de Endpoints y API Reference](./laboratorio/Documentacion-API.md)
-*  [Informe de Pruebas Unitarias y QA](./laboratorio/Informe-Pruebas.md)
-*  [Arquitectura de Software y Modelo de Datos](./laboratorio/Documentacion-Arquitectura.md)
+* [Documentación de API](./laboratorio/Documentacion-API.md)
+* [Documentación de Arquitectura](./laboratorio/Documentacion-Arquitectura.md)
+* [Análisis de API](./laboratorio/analisis-api.md)
+* [Informe de Ataque](./laboratorio/informe-ataque.md)
+* [Evidencias de Ataque](./laboratorio/evidencias-ataque/)
+* [Defensa Técnica](./laboratorio/defensa-tecnica.md)
+* [Informe de Pruebas 2](./laboratorio/Informe-Pruebas%202.md)
+* [Informe de Pruebas Unitarias y QA](./laboratorio/Informe-Pruebas.md)
+
