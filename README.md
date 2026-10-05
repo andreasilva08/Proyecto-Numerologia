@@ -13,8 +13,8 @@ Toda la documentación técnica, informes de auditoría y pruebas se encuentran 
 * [Documentación de Arquitectura](./laboratorio/Documentacion-Arquitectura.md)
 * [Análisis de API](./laboratorio/analisis-api.md)
 * [Informe de Ataque](./laboratorio/informe-ataque.md)
-* [Evidencias de Ataque](./laboratorio/evidencias-ataque/)
+* [Evidencias del Ataque recibido](./laboratorio/evidencias-ataque/)
 * [Defensa Técnica](./laboratorio/defensa-tecnica.md)
-* [Informe de Pruebas 2](./laboratorio/Informe-Pruebas%202.md)
+* [Informe de Ataque 2](./laboratorio/Informe-Pruebas%202.md)
 * [Informe de Pruebas Unitarias y QA](./laboratorio/Informe-Pruebas.md)
 
