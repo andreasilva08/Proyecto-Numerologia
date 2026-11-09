@@ -5,7 +5,7 @@ import {
   getNumerologyProfileById, 
   updateNumerologyProfile, 
   deleteNumerologyProfile 
-} from '../controllers/numerologyProfile.controller.js';
+} from '../Controllers/numerologyProfile.controller.js';
 import { 
   validarCrearPerfilNumerologico, 
   validarPerfilId 

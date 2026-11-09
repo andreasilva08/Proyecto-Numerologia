@@ -5,7 +5,7 @@ import {
   getCompatibilityMatchById, 
   updateCompatibilityMatch, 
   deleteCompatibilityMatch 
-} from '../controllers/compatibilityMatch.controller.js';
+} from '../Controllers/compatibilityMatch.controller.js';
 import { 
   validarCrearCompatibilidad, 
   validarCompatibilidadId 
