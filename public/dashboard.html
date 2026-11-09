@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Cósmico - Numerology Master</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'mystic-dark': '#090a0f',
+            'mystic-card': 'rgba(18, 20, 32, 0.75)',
+            'mystic-card-hover': 'rgba(28, 32, 51, 0.85)',
+            'mystic-gold': '#e2b761',
+            'mystic-gold-light': '#fbe3ab',
+            'mystic-gold-dark': '#b88d3b',
+            'mystic-purple': '#7b2cbf',
+            'mystic-cyan': '#00f5d4',
+            'mystic-border': 'rgba(226, 183, 97, 0.3)',
+          },
+          fontFamily: {
+            serif: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Custom Styles -->
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-mystic-dark text-[#f0f2f8] min-h-screen flex flex-col items-center justify-start py-6 px-3 sm:px-6">
+
+  <!-- Contenedor Principal del Dashboard -->
+  <main class="dashboard-container w-full max-w-7xl mx-auto my-4 sm:my-8 bg-[rgba(18,20,32,0.85)] border border-[rgba(226,183,97,0.3)] rounded-3xl p-5 sm:p-8 backdrop-blur-xl shadow-2xl">
+    
+    <!-- 1. ENCABEZADO SUPERIOR -->
+    <header class="flex flex-col sm:flex-row justify-between items-center pb-6 border-b border-[rgba(255,255,255,0.08)] mb-8 gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl text-mystic-gold filter drop-shadow-[0_0_8px_rgba(226,183,97,0.5)]">✦</span>
+        <div>
+          <h1 id="welcomeUser" class="text-2xl sm:text-3xl font-serif text-mystic-gold tracking-wider">¡Bienvenido, Viajero Cósmico!</h1>
+          <p class="text-sm text-[#94a1b2] font-sans">Portal de Arcanos Numéricos, Ciclos y Lecturas con IA</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="refreshDataBtn" type="button" class="!w-auto !mt-0 px-4 py-2 text-sm font-serif bg-[rgba(226,183,97,0.1)] border border-[rgba(226,183,97,0.3)] text-mystic-gold-light hover:bg-[rgba(226,183,97,0.2)] rounded-xl transition-all shadow-none">
+          🔄 Actualizar
+        </button>
+        <button id="logoutBtn" type="button" class="!w-auto !mt-0 px-4 py-2 text-sm font-serif text-[#94a1b2] border border-[rgba(255,255,255,0.1)] rounded-xl hover:text-red-400 hover:border-red-400/40 transition-all">
+          Cerrar Sesión ⎋
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. TARJETA DE PERFIL MEJORADA -->
+    <section class="card mb-8 p-6 bg-[rgba(12,14,24,0.7)] border border-[rgba(226,183,97,0.3)] rounded-2xl relative overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(226,183,97,0.25)] transition-all duration-300">
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-mystic-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Avatar y Datos Básicos -->
+        <div class="lg:col-span-5 flex items-start gap-4">
+          <div class="relative flex-shrink-0">
+            <div id="zodiacSymbol" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-mystic-gold-dark/30 via-mystic-card to-mystic-purple/40 border-2 border-mystic-gold flex items-center justify-center text-3xl sm:text-4xl text-mystic-gold shadow-[0_0_15px_rgba(226,183,97,0.25)]">
+              ✨
+            </div>
+            <span class="absolute -bottom-2 -right-1 bg-mystic-dark border border-mystic-gold px-2 py-0.5 rounded-full text-[10px] text-mystic-gold font-bold uppercase tracking-wider">Activo</span>
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 id="profileName" class="text-xl sm:text-2xl font-serif text-mystic-gold truncate">Cargando perfil...</h2>
+              <span id="profileRoleBadge" class="badge-purple text-[10px] uppercase">Consultante</span>
+            </div>
+            <p id="profileEmail" class="text-sm text-mystic-cyan truncate mb-2">cargando@numerologia.com</p>
+            <button id="editProfileBtn" type="button" class="!w-auto !mt-0 mb-3 px-3 py-1.5 text-xs font-serif text-mystic-gold-light border border-[rgba(226,183,97,0.35)] rounded-lg hover:bg-[rgba(226,183,97,0.12)] transition-all">
+              ✎ Editar Perfil
+            </button>
+            
+            <div class="flex items-center gap-4 text-sm text-[#94a1b2]">
+              <span>Signo: <strong id="zodiacSign" class="text-mystic-gold-light">--</strong></span>
+              <span>•</span>
+              <span>Elemento: <strong id="zodiacElement" class="text-mystic-gold-light">--</strong></span>
+            </div>
+
+            <!-- Fecha de Nacimiento Real -->
+            <div id="birthDateDisplay" class="hidden mt-2 flex items-center gap-2 text-sm text-[#94a1b2]">
+              <span class="text-mystic-gold">📅</span>
+              <span>Nacimiento: <strong id="birthDateText" class="text-mystic-gold-light">--</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Etiquetas de Números Clave -->
+        <div class="lg:col-span-7 flex flex-wrap items-center justify-start lg:justify-end gap-3 border-t lg:border-t-0 lg:border-l border-[rgba(255,255,255,0.08)] pt-4 lg:pt-0 lg:pl-6">
+          <div class="flex flex-col items-center sm:items-start bg-[rgba(18,20,32,0.8)] border border-[rgba(226,183,97,0.25)] rounded-xl px-4 py-2.5 min-w-[145px]">
+            <span class="text-xs uppercase tracking-wider text-[#94a1b2]">Camino de Vida</span>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span id="quickLifePath" class="text-2xl font-serif font-bold text-mystic-gold">--</span>
+              <span class="badge-gold text-[10px]">Sendero Natal</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center sm:items-start bg-[rgba(18,20,32,0.8)] border border-[rgba(123,44,191,0.35)] rounded-xl px-4 py-2.5 min-w-[145px]">
+            <span class="text-xs uppercase tracking-wider text-[#94a1b2]">Año Personal 2026</span>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span id="quickPersonalYear" class="text-2xl font-serif font-bold text-purple-300">--</span>
+              <span class="badge-purple text-[10px]">Ciclo Activo</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center sm:items-start bg-[rgba(18,20,32,0.8)] border border-[rgba(0,245,212,0.25)] rounded-xl px-4 py-2.5 min-w-[145px]">
+            <span class="text-xs uppercase tracking-wider text-[#94a1b2]">Expresión</span>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span id="quickExpression" class="text-2xl font-serif font-bold text-mystic-cyan">--</span>
+              <span class="badge-cyan text-[10px]">Nombre</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESGLOSE DEL SENDERO NATAL (vida) -->
+      <div id="desgloseVidaContainer" class="hidden mt-5 pt-4 border-t border-[rgba(255,255,255,0.06)]">
+        <div class="bg-[rgba(10,12,20,0.6)] rounded-xl p-4 border border-[rgba(226,183,97,0.15)]">
+          <p class="text-xs uppercase tracking-wider text-mystic-gold font-bold mb-3 flex items-center gap-2">
+            <span>🔢</span> Desglose del Sendero Natal — ¿Cómo se calcula tu Camino de Vida?
+          </p>
+          <div id="desgloseVidaTiles" class="flex flex-wrap gap-2 items-center text-sm">
+            <!-- Renderizado dinámico por JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Horóscopo del Día -->
+      <div class="mt-5 pt-4 border-t border-[rgba(255,255,255,0.06)] flex items-start gap-3 bg-[rgba(10,12,20,0.6)] p-3 rounded-xl">
+        <span class="text-lg text-mystic-gold">🔮</span>
+        <div>
+          <span class="text-xs uppercase tracking-wider text-mystic-gold font-bold">Guía Cósmica del Día:</span>
+          <p id="zodiacHoroscope" class="text-sm text-[#f0f2f8] italic mt-0.5">Cargando las influencias de los astros para tu signo...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. GRID HERRAMIENTAS NUMEROLÓGICAS (2 COLUMNAS) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+      <!-- TARJETA 1: CÁLCULO DE EXPRESIÓN -->
+      <section class="card p-6 bg-[rgba(12,14,24,0.75)] border border-[rgba(226,183,97,0.3)] rounded-2xl flex flex-col justify-between hover:shadow-[0_0_25px_rgba(226,183,97,0.25)] transition-all duration-300">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl text-mystic-gold">🔤</span>
+              <div>
+                <h2 class="text-lg sm:text-xl font-serif text-mystic-gold tracking-wide">Cálculo de Expresión</h2>
+                <p class="text-sm text-[#94a1b2]">Convierte tu nombre a valores pitagóricos</p>
+              </div>
+            </div>
+            <span class="badge-cyan text-[10px]">Pitagórico</span>
+          </div>
+
+          <form id="formExpresion" class="space-y-4 !mt-0">
+            <div class="input-group">
+              <label for="inputNombreCompleto" class="text-sm text-mystic-gold-light tracking-wider font-semibold">Nombre Completo a Analizar</label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="inputNombreCompleto" 
+                  name="nombreCompleto" 
+                  placeholder="Ej: Andrea Carolina Silva Macias" 
+                  maxlength="100" 
+                  required
+                  class="w-full bg-[rgba(10,12,20,0.9)] border border-[rgba(226,183,97,0.3)] focus:border-mystic-gold rounded-xl px-4 py-3 text-sm text-[#f0f2f8] placeholder-[#94a1b2]/50 focus:outline-none focus:ring-1 focus:ring-mystic-gold transition-all"
+                >
+                <span id="charCountExp" class="absolute right-3 top-3 text-[10px] text-[#94a1b2]">0/100</span>
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              id="btnCalcularExpresion" 
+              class="w-full !mt-3 py-3 px-4 bg-gradient-to-r from-mystic-gold-dark via-mystic-gold to-mystic-gold-light text-slate-900 font-serif font-bold text-sm uppercase tracking-wider rounded-xl hover:shadow-[0_0_20px_rgba(226,183,97,0.4)] transition-all flex items-center justify-center gap-2"
+            >
+              <span id="btnExpText">Calcular Número de Expresión</span>
+              <span id="btnExpSpinner" class="hidden mystic-spinner !w-4 !h-4 !border-2"></span>
+            </button>
+          </form>
+
+          <!-- Resultado Expresión -->
+          <div id="resultadoExpresionContainer" class="hidden mt-6 pt-5 border-t border-[rgba(226,183,97,0.2)] animate-fade-in">
+            <div class="flex items-center gap-4 bg-[rgba(18,20,32,0.9)] border border-[rgba(226,183,97,0.3)] rounded-2xl p-4">
+              <div class="number-orb flex-shrink-0" id="orbNumeroExpresion">--</div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 id="arquetipoExpresion" class="text-base sm:text-lg font-serif text-mystic-gold">Cargando...</h3>
+                  <span id="badgeMaestroExpresion" class="hidden badge-purple text-[10px]">Número Maestro</span>
+                </div>
+                <p id="descripcionExpresion" class="text-sm text-[#f0f2f8] mt-1 leading-relaxed">Descripción de la vibración calculada.</p>
+              </div>
+            </div>
+
+            <div id="palabrasClaveContainer" class="flex flex-wrap gap-1.5 mt-3"></div>
+
+            <div class="mt-4">
+              <button type="button" id="toggleDesgloseBtn" class="!w-auto !mt-0 !p-0 bg-transparent text-[11px] text-mystic-cyan hover:underline flex items-center gap-1 shadow-none">
+                <span>Ver desglose letra por letra</span> ▼
+              </button>
+              <div id="desgloseLetrasContainer" class="hidden mt-3 max-h-36 overflow-y-auto p-2 bg-[rgba(10,12,20,0.8)] border border-[rgba(255,255,255,0.06)] rounded-xl flex flex-wrap gap-1.5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TARJETA 2: CICLO DEL AÑO PERSONAL 2026 -->
+      <section class="card p-6 bg-[rgba(12,14,24,0.75)] border border-[rgba(123,44,191,0.35)] rounded-2xl flex flex-col justify-between hover:shadow-[0_0_25px_rgba(226,183,97,0.25)] transition-all duration-300">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl text-purple-400">📅</span>
+              <div>
+                <h2 class="text-lg sm:text-xl font-serif text-purple-300 tracking-wide">Ciclo de Año Personal</h2>
+                <p class="text-sm text-[#94a1b2]">Predicción y lección evolutiva para 2026</p>
+              </div>
+            </div>
+            <span class="badge-purple text-[10px]">Año 2026</span>
+          </div>
+
+          <form id="formAnioPersonal" class="space-y-4 !mt-0">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="input-group">
+                <label for="inputDiaNacimiento" class="text-sm text-purple-200 tracking-wider font-semibold">Día de Nacimiento</label>
+                <input 
+                  type="number" 
+                  id="inputDiaNacimiento" 
+                  name="dia" 
+                  min="1" 
+                  max="31" 
+                  placeholder="Ej: 15"
+                  value=""
+                  required
+                  class="w-full bg-[rgba(10,12,20,0.9)] border border-[rgba(123,44,191,0.35)] focus:border-purple-400 rounded-xl px-4 py-3 text-sm text-[#f0f2f8] placeholder-[#94a1b2]/50 focus:outline-none focus:ring-1 focus:ring-purple-400 transition-all"
+                >
+              </div>
+
+              <div class="input-group">
+                <label for="inputMesNacimiento" class="text-sm text-purple-200 tracking-wider font-semibold">Mes de Nacimiento</label>
+                <select 
+                  id="inputMesNacimiento" 
+                  name="mes" 
+                  required
+                  class="w-full bg-[rgba(10,12,20,0.9)] border border-[rgba(123,44,191,0.35)] focus:border-purple-400 rounded-xl px-3 py-3 text-sm text-[#f0f2f8] focus:outline-none focus:ring-1 focus:ring-purple-400 transition-all"
+                >
+                  <option value="" disabled selected>-- Mes --</option>
+                  <option value="1">1 - Enero</option>
+                  <option value="2">2 - Febrero</option>
+                  <option value="3">3 - Marzo</option>
+                  <option value="4">4 - Abril</option>
+                  <option value="5">5 - Mayo</option>
+                  <option value="6">6 - Junio</option>
+                  <option value="7">7 - Julio</option>
+                  <option value="8">8 - Agosto</option>
+                  <option value="9">9 - Septiembre</option>
+                  <option value="10">10 - Octubre</option>
+                  <option value="11">11 - Noviembre</option>
+                  <option value="12">12 - Diciembre</option>
+                </select>
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              id="btnCalcularAnioPersonal" 
+              class="w-full !mt-3 py-3 px-4 bg-gradient-to-r from-purple-800 via-mystic-purple to-purple-500 text-white font-serif font-bold text-sm uppercase tracking-wider rounded-xl hover:shadow-[0_0_20px_rgba(123,44,191,0.5)] transition-all flex items-center justify-center gap-2"
+            >
+              <span id="btnAnioText">Calcular Ciclo 2026</span>
+              <span id="btnAnioSpinner" class="hidden mystic-spinner !w-4 !h-4 !border-2"></span>
+            </button>
+          </form>
+
+          <!-- Resultado Año Personal -->
+          <div id="resultadoAnioPersonalContainer" class="hidden mt-6 pt-5 border-t border-[rgba(123,44,191,0.25)] animate-fade-in">
+            <div class="flex items-center gap-4 bg-[rgba(18,20,32,0.9)] border border-[rgba(123,44,191,0.4)] rounded-2xl p-4">
+              <div class="number-orb !border-purple-400 !text-purple-200 !shadow-[0_0_20px_rgba(123,44,191,0.4)] flex-shrink-0" id="orbNumeroAnioPersonal">--</div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 id="etapaAnioPersonal" class="text-base sm:text-lg font-serif text-purple-300">Año de Inicios</h3>
+                  <span id="badgeMaestroAnio" class="hidden badge-purple text-[10px]">Año Maestro</span>
+                </div>
+                <p id="formulaPasoAPaso" class="text-sm text-[#94a1b2] font-mono mt-0.5">Fórmula: --</p>
+                <p id="enfoqueAnioPersonal" class="text-sm text-purple-200 mt-1 font-semibold">Enfoque: --</p>
+              </div>
+            </div>
+
+            <div class="mt-3 bg-[rgba(10,12,20,0.7)] p-3 rounded-xl border border-[rgba(255,255,255,0.06)]">
+              <p id="descripcionAnioPersonal" class="text-sm text-[#f0f2f8] leading-relaxed">Cargando interpretación...</p>
+              <div class="mt-2 pt-2 border-t border-[rgba(255,255,255,0.06)] flex items-start gap-2">
+                <span class="text-mystic-gold text-sm">💡</span>
+                <p id="consejoAnioPersonal" class="text-sm text-mystic-gold-light italic">Consejo: --</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 4. GRID NUEVAS FUNCIONES: ALMA Y PERSONALIDAD (2 COLUMNAS) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+      <!-- TARJETA 3: NÚMERO DEL ALMA (VOCALES) -->
+      <section class="card p-6 bg-[rgba(12,14,24,0.75)] border border-[rgba(0,245,212,0.25)] rounded-2xl flex flex-col justify-between hover:shadow-[0_0_25px_rgba(226,183,97,0.25)] transition-all duration-300">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl text-mystic-cyan">🕊️</span>
+              <div>
+                <h2 class="text-lg sm:text-xl font-serif text-mystic-cyan tracking-wide">Número del Alma</h2>
+                <p class="text-sm text-[#94a1b2]">El anhelo secreto de tu corazón (vocales)</p>
+              </div>
+            </div>
+            <span class="badge-cyan text-[10px]">Vocales</span>
+          </div>
+
+          <form id="formAlma" class="space-y-4 !mt-0">
+            <div class="input-group">
+              <label for="inputNombreAlma" class="text-sm text-mystic-cyan tracking-wider font-semibold">Nombre Completo</label>
+              <input 
+                type="text" 
+                id="inputNombreAlma" 
+                name="nombreCompleto" 
+                placeholder="Ej: Andrea Carolina Silva Macias" 
+                maxlength="100" 
+                required
+                class="w-full bg-[rgba(10,12,20,0.9)] border border-[rgba(0,245,212,0.25)] focus:border-mystic-cyan rounded-xl px-4 py-3 text-sm text-[#f0f2f8] placeholder-[#94a1b2]/50 focus:outline-none focus:ring-1 focus:ring-mystic-cyan transition-all"
+              >
+            </div>
+
+            <button 
+              type="submit" 
+              id="btnCalcularAlma" 
+              class="w-full !mt-3 py-3 px-4 bg-gradient-to-r from-teal-800 via-teal-600 to-mystic-cyan text-slate-900 font-serif font-bold text-sm uppercase tracking-wider rounded-xl hover:shadow-[0_0_20px_rgba(0,245,212,0.4)] transition-all flex items-center justify-center gap-2"
+            >
+              <span id="btnAlmaText">Revelar Número del Alma</span>
+              <span id="btnAlmaSpinner" class="hidden mystic-spinner !w-4 !h-4 !border-2 !border-teal-900 !border-t-teal-200"></span>
+            </button>
+          </form>
+
+          <!-- Resultado Alma -->
+          <div id="resultadoAlmaContainer" class="hidden mt-6 pt-5 border-t border-[rgba(0,245,212,0.2)] animate-fade-in">
+            <div class="flex items-center gap-4 bg-[rgba(18,20,32,0.9)] border border-[rgba(0,245,212,0.3)] rounded-2xl p-4">
+              <div class="number-orb !border-mystic-cyan !text-mystic-cyan !shadow-[0_0_20px_rgba(0,245,212,0.35)] flex-shrink-0" id="orbNumeroAlma">--</div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 id="arquetipoAlma" class="text-base sm:text-lg font-serif text-mystic-cyan">Cargando...</h3>
+                  <span id="badgeMaestroAlma" class="hidden badge-cyan text-[10px]">Número Maestro</span>
+                </div>
+                <p id="descripcionAlma" class="text-sm text-[#f0f2f8] mt-1 leading-relaxed">Descripción del anhelo más profundo.</p>
+              </div>
+            </div>
+
+            <div id="palabrasClaveAlmaContainer" class="flex flex-wrap gap-1.5 mt-3"></div>
+
+            <div class="mt-3 bg-[rgba(10,12,20,0.6)] p-3 rounded-xl border border-[rgba(0,245,212,0.1)]">
+              <p class="text-xs uppercase tracking-wider text-mystic-cyan font-semibold mb-2">Vocales encontradas</p>
+              <div id="desgloseVocalesContainer" class="flex flex-wrap gap-1.5">
+                <!-- Tiles de vocales generados dinámicamente -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TARJETA 4: NÚMERO DE PERSONALIDAD (CONSONANTES) -->
+      <section class="card p-6 bg-[rgba(12,14,24,0.75)] border border-[rgba(250,180,50,0.2)] rounded-2xl flex flex-col justify-between hover:shadow-[0_0_25px_rgba(226,183,97,0.25)] transition-all duration-300">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl text-amber-400">🎭</span>
+              <div>
+                <h2 class="text-lg sm:text-xl font-serif text-amber-300 tracking-wide">Número de Personalidad</h2>
+                <p class="text-sm text-[#94a1b2]">Cómo te perciben los demás (consonantes)</p>
+              </div>
+            </div>
+            <span class="badge-gold text-[10px]">Consonantes</span>
+          </div>
+
+          <form id="formPersonalidad" class="space-y-4 !mt-0">
+            <div class="input-group">
+              <label for="inputNombrePersonalidad" class="text-sm text-amber-200 tracking-wider font-semibold">Nombre Completo</label>
+              <input 
+                type="text" 
+                id="inputNombrePersonalidad" 
+                name="nombreCompleto" 
+                placeholder="Ej: Andrea Carolina Silva Macias" 
+                maxlength="100" 
+                required
+                class="w-full bg-[rgba(10,12,20,0.9)] border border-[rgba(250,180,50,0.2)] focus:border-amber-400 rounded-xl px-4 py-3 text-sm text-[#f0f2f8] placeholder-[#94a1b2]/50 focus:outline-none focus:ring-1 focus:ring-amber-400 transition-all"
+              >
+            </div>
+
+            <button 
+              type="submit" 
+              id="btnCalcularPersonalidad" 
+              class="w-full !mt-3 py-3 px-4 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-400 text-slate-900 font-serif font-bold text-sm uppercase tracking-wider rounded-xl hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all flex items-center justify-center gap-2"
+            >
+              <span id="btnPersonalidadText">Descubrir Número de Personalidad</span>
+              <span id="btnPersonalidadSpinner" class="hidden mystic-spinner !w-4 !h-4 !border-2 !border-amber-900 !border-t-amber-200"></span>
+            </button>
+          </form>
+
+          <!-- Resultado Personalidad -->
+          <div id="resultadoPersonalidadContainer" class="hidden mt-6 pt-5 border-t border-[rgba(250,180,50,0.2)] animate-fade-in">
+            <div class="flex items-center gap-4 bg-[rgba(18,20,32,0.9)] border border-[rgba(250,180,50,0.3)] rounded-2xl p-4">
+              <div class="number-orb !border-amber-400 !text-amber-300 !shadow-[0_0_20px_rgba(245,158,11,0.35)] flex-shrink-0" id="orbNumeroPersonalidad">--</div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 id="arquetipoPersonalidad" class="text-base sm:text-lg font-serif text-amber-300">Cargando...</h3>
+                  <span id="badgeMaestroPersonalidad" class="hidden badge-gold text-[10px]">Número Maestro</span>
+                </div>
+                <p id="descripcionPersonalidad" class="text-sm text-[#f0f2f8] mt-1 leading-relaxed">Tu imagen proyectada al mundo.</p>
+              </div>
+            </div>
+
+            <div id="palabrasClavePersonalidadContainer" class="flex flex-wrap gap-1.5 mt-3"></div>
+
+            <div class="mt-3 bg-[rgba(10,12,20,0.6)] p-3 rounded-xl border border-[rgba(250,180,50,0.1)]">
+              <p class="text-xs uppercase tracking-wider text-amber-400 font-semibold mb-2">Consonantes encontradas</p>
+              <div id="desgloseConsonantesContainer" class="flex flex-wrap gap-1.5">
+                <!-- Tiles de consonantes generados dinámicamente -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 5. HERRAMIENTAS NUMEROLÓGICAS AVANZADAS -->
+    <section aria-labelledby="advancedNumerologyTitle" class="mb-8">
+      <div class="mb-6 text-center">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-mystic-gold">Exploraciones avanzadas</p>
+        <h2 id="advancedNumerologyTitle" class="text-xl sm:text-2xl font-serif text-mystic-gold-light">Tu mapa numerológico profundo</h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <section class="card rounded-2xl border border-amber-500/40 bg-[rgba(12,14,24,0.75)] p-6 transition-all duration-300 hover:shadow-[0_0_25px_rgba(226,183,97,0.25)]">
+          <div class="mb-4 flex items-center gap-3">
+            <span aria-hidden="true" class="text-2xl text-mystic-gold">✦</span>
+            <div>
+              <h3 class="text-base font-serif text-mystic-gold-light">Los cuatro Pináculos</h3>
+              <p class="text-xs text-[#94a1b2]">Tus ciclos y rangos de edad</p>
+            </div>
+          </div>
+          <form id="formPinaculos" class="!mt-0 space-y-3">
+            <div class="input-group">
+              <label for="pinaculosFecha" class="text-sm text-mystic-gold-light">Fecha de nacimiento</label>
+              <input id="pinaculosFecha" type="date" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-4 py-3 text-sm text-[#f0f2f8]">
+            </div>
+            <button type="submit" class="!mt-0 !w-full !border-0 !bg-gradient-to-r !from-amber-500 !to-yellow-400 px-4 py-3 text-sm font-bold text-slate-950 rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_26px_rgba(245,158,11,0.55)]">Calcular Pináculos</button>
+          </form>
+          <div id="pinaculosResult" class="hidden mt-5 space-y-3 rounded-xl border border-amber-400/40 bg-[rgba(226,183,97,0.12)] p-4" aria-live="polite">
+            <p id="pinaculosLifePath" class="text-base font-semibold text-amber-200"></p>
+            <div id="pinaculosList" class="grid grid-cols-1 gap-2 sm:grid-cols-2"></div>
+          </div>
+        </section>
+
+        <section class="card rounded-2xl border border-amber-500/35 bg-[rgba(12,14,24,0.75)] p-6 transition-all duration-300 hover:shadow-[0_0_25px_rgba(123,44,191,0.24)]">
+          <div class="mb-4 flex items-center gap-3">
+            <span aria-hidden="true" class="text-2xl text-purple-300">☾</span>
+            <div>
+              <h3 class="text-base font-serif text-purple-200">Matriz kármica</h3>
+              <p class="text-xs text-[#94a1b2]">Números del 1 al 9 ausentes en tu nombre</p>
+            </div>
+          </div>
+          <form id="formMatrizKarmica" class="!mt-0 space-y-3">
+            <div class="input-group">
+              <label for="matrizNombre" class="text-sm text-purple-200">Nombres y apellidos</label>
+              <input id="matrizNombre" type="text" maxlength="100" required class="w-full rounded-xl border border-purple-400/30 bg-[rgba(10,12,20,0.9)] px-4 py-3 text-sm text-[#f0f2f8]">
+            </div>
+            <button type="submit" class="!mt-0 !w-full !border-0 !bg-gradient-to-r !from-violet-500 !to-fuchsia-400 px-4 py-3 text-sm font-bold text-slate-950 rounded-xl shadow-[0_0_20px_rgba(168,85,247,0.38)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_26px_rgba(168,85,247,0.55)]">Analizar Matriz</button>
+          </form>
+          <div id="matrizKarmicaResult" class="hidden mt-5 space-y-3 rounded-xl border border-purple-300/40 bg-[rgba(123,44,191,0.2)] p-4" aria-live="polite">
+            <p id="matrizKarmicaSummary" class="text-base font-semibold leading-relaxed text-purple-100"></p>
+            <div id="matrizKarmicaNumbers" class="flex flex-wrap gap-2"></div>
+          </div>
+        </section>
+
+        <section class="card rounded-2xl border border-amber-500/35 bg-[rgba(12,14,24,0.75)] p-6 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,245,212,0.18)]">
+          <div class="mb-4 flex items-center gap-3">
+            <span aria-hidden="true" class="text-2xl text-mystic-cyan">⌂</span>
+            <div>
+              <h3 class="text-base font-serif text-mystic-cyan">Número de Herencia</h3>
+              <p class="text-xs text-[#94a1b2]">Suma pitagórica de tus apellidos</p>
+            </div>
+          </div>
+          <form id="formHerencia" class="!mt-0 space-y-3">
+            <div class="input-group">
+              <label for="herenciaApellidos" class="text-sm text-mystic-cyan">Apellidos</label>
+              <input id="herenciaApellidos" type="text" maxlength="100" required class="w-full rounded-xl border border-mystic-cyan/25 bg-[rgba(10,12,20,0.9)] px-4 py-3 text-sm text-[#f0f2f8]">
+            </div>
+            <button type="submit" class="!mt-0 !w-full !border-0 !bg-gradient-to-r !from-teal-500 !to-cyan-400 px-4 py-3 text-sm font-bold text-slate-950 rounded-xl shadow-[0_0_20px_rgba(20,184,166,0.38)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_26px_rgba(20,184,166,0.55)]">Calcular Herencia</button>
+          </form>
+          <div id="herenciaResult" class="hidden mt-5 rounded-xl border border-cyan-300/40 bg-[rgba(0,245,212,0.12)] p-4" aria-live="polite">
+            <p id="herenciaSummary" class="text-lg font-semibold leading-relaxed text-cyan-100"></p>
+          </div>
+        </section>
+
+        <section class="card rounded-2xl border border-amber-500/40 bg-[rgba(12,14,24,0.75)] p-6 transition-all duration-300 hover:shadow-[0_0_25px_rgba(226,183,97,0.25)]">
+          <div class="mb-4 flex items-center gap-3">
+            <span aria-hidden="true" class="text-2xl text-mystic-gold">♧</span>
+            <div>
+              <h3 class="text-base font-serif text-mystic-gold-light">Compatibilidad numerológica</h3>
+              <p class="text-xs text-[#94a1b2]">Una comparación de Caminos de Vida</p>
+              <p class="mt-1 text-[11px] text-[#7f8a9b]">100% si coinciden; se restan 12,5 puntos por cada paso de distancia circular.</p>
+            </div>
+          </div>
+          <form id="formCompatibilidad" class="!mt-0 space-y-3">
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div class="input-group">
+                <label for="compatibilidadFecha1" class="text-sm text-mystic-gold-light">Tu nacimiento</label>
+                <input id="compatibilidadFecha1" type="date" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-3 py-3 text-sm text-[#f0f2f8]">
+              </div>
+              <div class="input-group">
+                <label for="compatibilidadFecha2" class="text-sm text-mystic-gold-light">Otra persona</label>
+                <input id="compatibilidadFecha2" type="date" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-3 py-3 text-sm text-[#f0f2f8]">
+              </div>
+            </div>
+            <button type="submit" class="!mt-0 !w-full !border-0 !bg-gradient-to-r !from-amber-500 !to-yellow-400 px-4 py-3 text-sm font-bold text-slate-950 rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_26px_rgba(245,158,11,0.55)]">Calcular Compatibilidad</button>
+          </form>
+          <div id="compatibilidadResult" class="hidden mt-5 rounded-xl border border-amber-400/40 bg-[rgba(226,183,97,0.12)] p-4" aria-live="polite">
+            <div class="flex items-center gap-4">
+              <span id="compatibilidadScore" class="font-serif text-4xl font-bold text-emerald-300"></span>
+              <p id="compatibilidadDescription" class="text-base leading-6 text-amber-100"></p>
+            </div>
+            <p id="compatibilidadPaths" class="mt-3 text-sm font-medium text-amber-200"></p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 6. SECCIÓN LECTURA DEL DÍA CON GEMINI IA -->
+    <section class="card p-6 sm:p-8 bg-gradient-to-b from-[rgba(18,20,32,0.9)] via-[rgba(12,14,24,0.95)] to-[rgba(8,10,16,0.98)] border border-[rgba(226,183,97,0.35)] rounded-2xl relative shadow-2xl hover:shadow-[0_0_25px_rgba(226,183,97,0.25)] transition-all duration-300">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-[rgba(255,255,255,0.08)]">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-mystic-gold/20 to-mystic-purple/30 border border-mystic-gold flex items-center justify-center text-2xl">
+            📜
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl sm:text-2xl font-serif text-mystic-gold tracking-wide">Lectura Cósmica con IA</h2>
+              <span class="badge-gold text-[10px]">Google Gemini</span>
+            </div>
+            <p class="text-sm text-[#94a1b2]">Análisis holístico estructurado y canalizado por Inteligencia Artificial</p>
+          </div>
+        </div>
+
+        <button 
+          id="btnGetReading" 
+          type="button" 
+          class="!w-full md:!w-auto !mt-0 px-6 py-3 bg-gradient-to-r from-mystic-gold-dark via-mystic-gold to-mystic-gold-light text-slate-950 font-serif font-bold text-sm uppercase tracking-wider rounded-xl hover:shadow-[0_0_25px_rgba(226,183,97,0.5)] transition-all flex items-center justify-center gap-2"
+        >
+          <span id="btnReadingIcon">✨</span>
+          <span id="btnReadingText">Obtener Lectura del Día</span>
+          <span id="btnReadingSpinner" class="hidden mystic-spinner !w-4 !h-4 !border-2"></span>
+        </button>
+      </div>
+
+      <!-- ★ ESTADO DE CARGA PROMINENTE (visible y atractivo) -->
+      <div id="readingLoadingState" class="hidden opacity-0 transition-opacity duration-300 py-14 flex flex-col items-center justify-center text-center space-y-5">
+        <div class="relative">
+          <div class="mystic-spinner !w-16 !h-16 !border-4 !border-mystic-gold/30 !border-t-mystic-gold"></div>
+          <span class="absolute inset-0 flex items-center justify-center text-2xl">🌌</span>
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-xl font-serif text-mystic-gold tracking-wider animate-pulse">Canalizando con Gemini IA...</h3>
+          <p class="text-sm text-[#94a1b2] max-w-sm mx-auto">El oráculo digital está alineando las constelaciones de tu matriz numerológica. Esto puede tomar unos segundos.</p>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <span class="w-2 h-2 rounded-full bg-mystic-gold animate-bounce" style="animation-delay:0ms"></span>
+          <span class="w-2 h-2 rounded-full bg-mystic-gold animate-bounce" style="animation-delay:150ms"></span>
+          <span class="w-2 h-2 rounded-full bg-mystic-gold animate-bounce" style="animation-delay:300ms"></span>
+        </div>
+      </div>
+
+      <!-- Estado Inicial / Placeholder -->
+      <div id="readingPlaceholderState" class="opacity-100 transition-opacity duration-300 py-12 text-center text-[#94a1b2] space-y-2">
+        <p class="text-3xl">🌌</p>
+        <p class="text-base font-serif text-mystic-gold-light">Tu lectura cósmica aún no ha sido develada hoy.</p>
+        <p class="text-sm max-w-md mx-auto">Haz clic en el botón superior para canalizar tu lectura personalizada mediante la IA oficial de Gemini.</p>
+      </div>
+
+      <!-- Contenedor de Lectura Estructurada -->
+      <div id="readingResultContainer" class="hidden opacity-0 transition-opacity duration-300 pt-6 space-y-6">
+        
+        <!-- Metadata -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-[#94a1b2] bg-[rgba(10,12,20,0.6)] px-4 py-2.5 rounded-xl border border-[rgba(255,255,255,0.06)]">
+          <div class="flex items-center gap-2">
+            <span>Fuente:</span>
+            <span id="readingOriginBadge" class="badge-gold text-[10px]">Generado con IA</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span id="readingModelTag">Modelo: gemini-3.8-flash</span>
+            <span>•</span>
+            <span id="readingTokensTag">Tokens: --</span>
+          </div>
+        </div>
+
+        <!-- Resumen Cósmico -->
+        <div class="reading-section-box border-l-4 !border-l-mystic-gold bg-gradient-to-r from-[rgba(226,183,97,0.08)] to-transparent">
+          <span class="text-sm uppercase tracking-wider text-mystic-gold font-bold flex items-center gap-2">
+            <span>✦</span> Resumen Cósmico
+          </span>
+          <p id="readingResumenText" class="text-base text-[#f0f2f8] mt-2 italic leading-relaxed font-sans">"..."</p>
+        </div>
+
+        <!-- Interpretación Número de Vida & Número Destacado -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+          <div class="md:col-span-8 reading-section-box flex flex-col justify-center">
+            <span class="text-sm uppercase tracking-wider text-purple-300 font-bold flex items-center gap-2">
+              <span>🔮</span> Interpretación del Sendero Natal
+            </span>
+            <p id="readingVidaText" class="text-sm text-[#f0f2f8] mt-2 leading-relaxed">
+              Cargando interpretación profunda...
+            </p>
+          </div>
+
+          <div class="md:col-span-4 reading-section-box flex flex-col items-center justify-center text-center bg-gradient-to-b from-[rgba(123,44,191,0.15)] to-[rgba(10,12,20,0.8)] border border-[rgba(123,44,191,0.3)]">
+            <span class="text-xs uppercase tracking-wider text-mystic-gold font-semibold mb-2">Número Destacado</span>
+            <div id="readingDestacadoOrb" class="number-orb !w-20 !h-20 !text-3xl my-1">--</div>
+            <span class="text-xs text-[#94a1b2] mt-1">Mayor vibración de hoy</span>
+          </div>
+        </div>
+
+        <!-- Fortalezas vs Áreas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="reading-section-box border-t-2 !border-t-emerald-400/50">
+            <span class="text-sm uppercase tracking-wider text-emerald-400 font-bold flex items-center gap-2 mb-3">
+              <span>🌟</span> Fortalezas &amp; Dones Principales
+            </span>
+            <ul id="readingFortalezasList" class="space-y-2 text-sm text-[#f0f2f8]"></ul>
+          </div>
+
+          <div class="reading-section-box border-t-2 !border-t-amber-400/50">
+            <span class="text-sm uppercase tracking-wider text-amber-300 font-bold flex items-center gap-2 mb-3">
+              <span>⚖️</span> Áreas de Evolución &amp; Crecimiento
+            </span>
+            <ul id="readingAreasList" class="space-y-2 text-sm text-[#f0f2f8]"></ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="profileEditModal" class="hidden opacity-0 transition-opacity duration-300 fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" aria-hidden="true">
+    <section role="dialog" aria-modal="true" aria-labelledby="profileEditTitle" class="w-full max-w-lg rounded-2xl border border-[rgba(226,183,97,0.35)] bg-[rgba(18,20,32,0.98)] p-6 shadow-[0_0_35px_rgba(226,183,97,0.18)]">
+      <div class="mb-5 flex items-center justify-between gap-4">
+        <h2 id="profileEditTitle" class="text-xl font-serif text-mystic-gold">Editar Perfil</h2>
+        <button id="closeProfileModalBtn" type="button" aria-label="Cerrar" class="!w-auto !mt-0 !p-1 bg-transparent text-xl text-[#94a1b2] hover:text-white shadow-none">×</button>
+      </div>
+      <form id="profileEditForm" class="!mt-0 space-y-4">
+        <div class="input-group">
+          <label for="editFirstName" class="text-sm text-mystic-gold-light">Nombres completos</label>
+          <input id="editFirstName" name="firstName" type="text" maxlength="80" autocomplete="given-name" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-4 py-3 text-sm text-[#f0f2f8] focus:border-mystic-gold focus:outline-none">
+        </div>
+        <div class="input-group">
+          <label for="editLastName" class="text-sm text-mystic-gold-light">Apellidos</label>
+          <input id="editLastName" name="lastName" type="text" maxlength="80" autocomplete="family-name" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-4 py-3 text-sm text-[#f0f2f8] focus:border-mystic-gold focus:outline-none">
+        </div>
+        <div class="input-group">
+          <span class="text-sm text-mystic-gold-light">Fecha de nacimiento</span>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label for="editBirthDay" class="sr-only">Día</label>
+              <input id="editBirthDay" type="number" min="1" max="31" placeholder="Día" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-3 py-3 text-sm text-[#f0f2f8] focus:border-mystic-gold focus:outline-none">
+            </div>
+            <div>
+              <label for="editBirthMonth" class="sr-only">Mes</label>
+              <input id="editBirthMonth" type="number" min="1" max="12" placeholder="Mes" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-3 py-3 text-sm text-[#f0f2f8] focus:border-mystic-gold focus:outline-none">
+            </div>
+            <div>
+              <label for="editBirthYear" class="sr-only">Año</label>
+              <input id="editBirthYear" type="number" min="1" placeholder="Año" required class="w-full rounded-xl border border-[rgba(226,183,97,0.3)] bg-[rgba(10,12,20,0.9)] px-3 py-3 text-sm text-[#f0f2f8] focus:border-mystic-gold focus:outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button id="cancelProfileEditBtn" type="button" class="!w-auto !mt-0 px-4 py-2 text-sm text-[#c5ccd6] border border-white/15 rounded-xl hover:bg-white/5 transition-all">Cancelar</button>
+          <button id="saveProfileBtn" type="submit" class="!w-auto !mt-0 px-5 py-2 text-sm font-serif font-bold text-slate-950 bg-gradient-to-r from-mystic-gold-dark via-mystic-gold to-mystic-gold-light rounded-xl hover:shadow-[0_0_18px_rgba(226,183,97,0.3)] transition-all">Guardar Cambios</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="./js/dashboard.js"></script>
+</body>
+</html>

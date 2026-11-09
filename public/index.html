@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descubre el significado de tus números y explora tu mapa numerológico con Numerology Master, una experiencia guiada por inteligencia artificial.">
+  <meta name="theme-color" content="#090a0f">
+  <title>Numerology Master — Descubre tu mapa numerológico</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'mystic-dark': '#090a0f',
+            'mystic-card': 'rgba(18, 20, 32, 0.75)',
+            'mystic-gold': '#e2b761',
+            'mystic-gold-light': '#fbe3ab',
+            'mystic-gold-dark': '#b88d3b',
+            'mystic-purple': '#7b2cbf',
+            'mystic-cyan': '#00f5d4'
+          },
+          fontFamily: {
+            serif: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="!block !min-h-screen !bg-mystic-dark !px-0 !py-0 !text-[#f0f2f8]">
+  <header class="relative z-10 border-b border-white/10 bg-[rgba(9,10,15,0.72)] backdrop-blur-xl">
+    <nav aria-label="Navegación principal" class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+      <a href="index.html" class="flex items-center gap-3 no-underline" aria-label="Numerology Master, inicio">
+        <span aria-hidden="true" class="flex h-10 w-10 items-center justify-center rounded-xl border border-mystic-gold/40 bg-mystic-gold/10 text-xl text-mystic-gold shadow-[0_0_18px_rgba(226,183,97,0.12)]">✦</span>
+        <span class="font-serif text-sm font-bold tracking-[0.12em] text-mystic-gold-light sm:text-base">NUMEROLOGY <span class="text-mystic-gold">MASTER</span></span>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="login.html" class="rounded-xl border border-white/15 px-3 py-2 text-xs font-semibold text-[#d5d9e2] no-underline transition hover:border-mystic-gold/50 hover:text-mystic-gold-light sm:px-5 sm:text-sm">Iniciar Sesión</a>
+        <a href="register.html" class="rounded-xl bg-gradient-to-r from-mystic-gold-dark via-mystic-gold to-mystic-gold-light px-3 py-2 text-xs font-bold text-slate-950 no-underline shadow-[0_0_18px_rgba(226,183,97,0.16)] transition hover:shadow-[0_0_25px_rgba(226,183,97,0.35)] sm:px-5 sm:text-sm">Crear Cuenta</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="hero-title" class="relative isolate overflow-hidden px-5 pb-24 pt-20 text-center sm:px-8 sm:pb-32 sm:pt-28">
+      <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-10 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-mystic-purple/20 blur-[100px] sm:h-[30rem] sm:w-[30rem]"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-mystic-gold/10 sm:h-[28rem] sm:w-[28rem]"></div>
+      <div class="mx-auto max-w-4xl">
+        <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-mystic-gold/25 bg-mystic-gold/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-mystic-gold-light sm:text-xs">
+          <span aria-hidden="true" class="text-mystic-gold">✧</span> Un mapa para conocerte mejor
+        </p>
+        <h1 id="hero-title" class="mx-auto max-w-4xl !text-4xl !font-semibold !leading-tight !tracking-wide !text-mystic-gold-light sm:!text-6xl lg:!text-7xl">
+          Descubre el lenguaje <span class="text-mystic-gold">sagrado</span> de tus números
+        </h1>
+        <p class="mx-auto mt-7 max-w-2xl text-sm leading-7 text-[#b4bdcb] sm:text-lg sm:leading-8">
+          Explora tu camino de vida y las vibraciones de tu nombre con la numerología pitagórica tradicional, acompañada por lecturas cósmicas generadas con la inteligencia artificial de Google Gemini.
+        </p>
+        <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href="register.html" class="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-mystic-gold-dark via-mystic-gold to-mystic-gold-light px-7 py-3 text-sm font-bold uppercase tracking-wider text-slate-950 no-underline shadow-[0_0_24px_rgba(226,183,97,0.24)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(226,183,97,0.4)] sm:w-auto">
+            Comenzar Ahora <span aria-hidden="true">→</span>
+          </a>
+          <a href="#funcionalidades" class="flex min-h-12 w-full items-center justify-center rounded-xl border border-mystic-gold/30 bg-white/[0.03] px-7 py-3 text-sm font-semibold text-mystic-gold-light no-underline transition duration-300 hover:border-mystic-gold/60 hover:bg-mystic-gold/5 sm:w-auto">
+            Explorar el Oráculo
+          </a>
+        </div>
+        <div class="mt-14 flex items-center justify-center gap-3 text-xs text-[#8f9aaa] sm:text-sm">
+          <span aria-hidden="true" class="text-mystic-gold">✦</span>
+          <span>Tradición numerológica, una perspectiva personal y guía inteligente</span>
+          <span aria-hidden="true" class="text-mystic-gold">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="funcionalidades" aria-labelledby="features-title" class="scroll-mt-8 border-y border-white/[0.07] bg-[rgba(12,14,24,0.46)] px-5 py-20 sm:px-8 sm:py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="mx-auto mb-12 max-w-2xl text-center">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-mystic-gold">Tu mapa numerológico</p>
+          <h2 id="features-title" class="!text-2xl !font-semibold !text-mystic-gold-light sm:!text-4xl">Una mirada a cada vibración</h2>
+          <p class="mt-4 text-sm leading-7 text-[#9ba6b7] sm:text-base">Conoce las herramientas que te acompañan en el recorrido por tus números personales.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="group rounded-2xl border border-mystic-gold/15 bg-[rgba(18,20,32,0.72)] p-6 transition duration-300 hover:-translate-y-1 hover:border-mystic-gold/40 hover:shadow-[0_0_25px_rgba(226,183,97,0.12)]">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-mystic-gold/25 bg-mystic-gold/10 text-2xl text-mystic-gold" aria-hidden="true">☼</div>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Camino de Vida</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Descubre el número de tu sendero natal y revisa cómo se compone a partir de tu fecha de nacimiento.</p>
+          </article>
+
+          <article class="group rounded-2xl border border-mystic-gold/15 bg-[rgba(18,20,32,0.72)] p-6 transition duration-300 hover:-translate-y-1 hover:border-mystic-gold/40 hover:shadow-[0_0_25px_rgba(226,183,97,0.12)]">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-mystic-purple/40 bg-mystic-purple/15 text-2xl text-purple-300" aria-hidden="true">✧</div>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Expresión y vibración del nombre</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Explora el valor numerológico de tu nombre completo y su desglose letra por letra.</p>
+          </article>
+
+          <article class="group rounded-2xl border border-mystic-gold/15 bg-[rgba(18,20,32,0.72)] p-6 transition duration-300 hover:-translate-y-1 hover:border-mystic-gold/40 hover:shadow-[0_0_25px_rgba(226,183,97,0.12)]">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-500/10 text-2xl text-purple-300" aria-hidden="true">◷</div>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Ciclo de Año Personal</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Consulta la energía de tu ciclo personal para 2026 y sus temas para reflexionar durante el año.</p>
+          </article>
+
+          <article class="group rounded-2xl border border-mystic-gold/15 bg-[rgba(18,20,32,0.72)] p-6 transition duration-300 hover:-translate-y-1 hover:border-mystic-gold/40 hover:shadow-[0_0_25px_rgba(226,183,97,0.12)]">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-mystic-cyan/25 bg-mystic-cyan/5 text-2xl text-mystic-cyan" aria-hidden="true">☽</div>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Alma y Personalidad</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Separa las vibraciones de las vocales y consonantes para explorar los números del alma y la personalidad.</p>
+          </article>
+
+          <article class="group rounded-2xl border border-mystic-gold/15 bg-[rgba(18,20,32,0.72)] p-6 transition duration-300 hover:-translate-y-1 hover:border-mystic-gold/40 hover:shadow-[0_0_25px_rgba(226,183,97,0.12)] sm:col-span-2 lg:col-span-2">
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-start">
+              <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-mystic-gold/25 bg-gradient-to-br from-mystic-gold/10 to-mystic-purple/20 text-2xl text-mystic-gold" aria-hidden="true">✦</div>
+              <div>
+                <h3 class="!text-base !font-semibold !text-mystic-gold-light">Lecturas cósmicas con inteligencia artificial</h3>
+                <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Recibe una lectura personalizada que combina tus datos numerológicos con una canalización generada por Google Gemini.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="steps-title" class="px-5 py-20 sm:px-8 sm:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto mb-12 max-w-2xl text-center">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-mystic-gold">Un recorrido sencillo</p>
+          <h2 id="steps-title" class="!text-2xl !font-semibold !text-mystic-gold-light sm:!text-4xl">¿Cómo funciona?</h2>
+        </div>
+        <ol class="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <li class="relative rounded-2xl border border-white/10 bg-white/[0.025] p-6 text-center">
+            <span class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-mystic-gold/50 bg-mystic-gold/10 font-serif text-xl font-bold text-mystic-gold">1</span>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Regístrate</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Crea tu cuenta e ingresa tus datos para personalizar tu experiencia.</p>
+          </li>
+          <li class="relative rounded-2xl border border-white/10 bg-white/[0.025] p-6 text-center">
+            <span class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-mystic-gold/50 bg-mystic-gold/10 font-serif text-xl font-bold text-mystic-gold">2</span>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Descubre tus números</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Explora tu camino de vida, tus ciclos y las vibraciones de tu nombre.</p>
+          </li>
+          <li class="relative rounded-2xl border border-white/10 bg-white/[0.025] p-6 text-center">
+            <span class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-mystic-gold/50 bg-mystic-gold/10 font-serif text-xl font-bold text-mystic-gold">3</span>
+            <h3 class="!text-base !font-semibold !text-mystic-gold-light">Consulta al Oráculo</h3>
+            <p class="mt-3 text-sm leading-6 text-[#9ba6b7]">Genera tu lectura cósmica personalizada con el apoyo de inteligencia artificial.</p>
+          </li>
+        </ol>
+        <div class="mt-12 text-center">
+          <a href="register.html" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-mystic-gold-dark via-mystic-gold to-mystic-gold-light px-7 py-3 text-sm font-bold uppercase tracking-wider text-slate-950 no-underline transition duration-300 hover:shadow-[0_0_25px_rgba(226,183,97,0.35)]">Iniciar mi recorrido <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-[rgba(9,10,15,0.65)] px-5 py-7 text-center sm:px-8">
+    <p class="text-xs text-[#7f8a9b] sm:text-sm">Numerology Master · Proyecto académico y personal</p>
+    <p class="mt-2 text-[11px] text-[#657182]">Una herramienta de exploración y reflexión personal.</p>
+  </footer>
+</body>
+</html>
