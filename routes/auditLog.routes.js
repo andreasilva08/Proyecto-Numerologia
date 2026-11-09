@@ -5,7 +5,7 @@ import {
   getAuditLogById, 
   updateAuditLog, 
   deleteAuditLog 
-} from '../controllers/auditLog.controller.js';
+} from '../Controllers/auditLog.controller.js';
 import { 
   validarCrearRegistroAuditoria, 
   validarAuditoriaId 
